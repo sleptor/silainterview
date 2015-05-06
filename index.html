@@ -30,14 +30,15 @@
 
 <ul>
 <li>Скачать и разместить файлы silainterview на своем сайте</li>
-<li>встроить в страницы HTML-код:</li>
+<li>Встроить в страницы HTML-код. Допустим, вы разместили файлы по адресу <a href="http://example.com/int">http://example.com/int</a> , тогда код будет таким:</li>
 </ul>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-k">&lt;</span>script src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>silainterview.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span>
+<div class="highlight highlight-javascript"><pre><span class="pl-k">&lt;</span>script src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>http://example.com/int/silainterview.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span>
 <span class="pl-k">&lt;</span>div id<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>silainterview<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/div<span class="pl-k">&gt;</span>
 <span class="pl-k">&lt;</span>script<span class="pl-k">&gt;</span>
-    $(<span class="pl-k">function</span>(){
-        $(<span class="pl-s"><span class="pl-pds">'</span>#silainterview<span class="pl-pds">'</span></span>).SilaInterview({
+    jQuery(<span class="pl-k">function</span>(){
+        jQuery(<span class="pl-s"><span class="pl-pds">'</span>#silainterview<span class="pl-pds">'</span></span>).SilaInterview({
+                        css<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>http://example.com/int/silainterview.css<span class="pl-pds">'</span></span>,     
             name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>interview<span class="pl-cce">\'</span>s name<span class="pl-pds">'</span></span>,
             descr<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>supa pupa interview<span class="pl-pds">'</span></span>,
             photoUrl<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>http://thumbs.dreamstime.com/x/casual-interview-meeting-4232679.jpg<span class="pl-pds">'</span></span>,
