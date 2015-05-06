@@ -1,0 +1,16 @@
+.silainterview ul {
+	list-style: none;
+}
+
+.silainterview .descr {
+    float: left;
+    width: 300px;
+}
+
+.silainterview .questions {
+    padding-left: 300px;
+}
+
+.silainterview .video {
+    padding-left: 300px;
+}

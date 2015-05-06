@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<body>
+
+<script src="silainterview.js"></script>
+<div id="silainterview"></div>
+<script>
+	$(function(){
+		$('#silainterview').SilaInterview({
+			name: 'interview\'s name',
+			descr: 'supa pupa interview',
+			photoUrl: 'http://thumbs.dreamstime.com/x/casual-interview-meeting-4232679.jpg',
+
+			questions: [
+				{
+					text: '111111111',
+					videoUrl: 'www.youtube.com/watch?v=TStjKm5OiUA'
+				},
+				{
+					text: '22222222',
+					videoUrl: 'www.youtube.com/watch?v=PtuHeWyDJqQ'
+				},
+				{
+					text: '3333333',
+					videoUrl: 'www.youtube.com/watch?v=kZ6A6VaWUIU'
+				},
+				{
+					text: '4444444',
+					videoUrl: 'www.youtube.com/watch?v=DzfUBoD9R7U'
+				}
+			]
+		})
+	});
+</script>
+</body>
+
+</html>
