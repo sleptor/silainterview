@@ -1,42 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 
 <body>
 
 <script src="silainterview.js"></script>
-<div id="silainterview"></div>
+<div id="silainterview1" class="silainterview">
+    <h1>Demo interview</h1>
+    <div class="sila-description">
+        Александр Куприянов, создатель и руководитель мультимедийных редакций, тренер-консультант в области
+        медиаменеджмента и Сергей Якупов, продюсер, редактор zvzda.ru и mediamedia.me, рассказывают о проектах,
+        разработанных в рамках «Мультимедийные мы»
+    </div>
+    <div class="sila-video-player">
+        <img src="http://multimediawe.ru/wp-content/uploads/2015/05/exp.jpg">
+    </div>
+    <div class="sila-questions">
+        <h2>Выберите вопрос</h2>
+        <ul>
+            <li data-video="www.youtube.com/watch?v=-5REkR4b1b0">
+                Критерии, которыми руководствовались эксперты при оценке проектов
+            </li>
+            <li data-video="www.youtube.com/watch?v=SJAF6CPjdbw">
+                Что удивило и порадовало экспертов в проектах
+            </li>
+            <li data-video="www.youtube.com/watch?v=dtmwEv4ePJM">
+                Сергей Якупов о проектах, которые зацепили
+            </li>
+            <li data-video="www.youtube.com/watch?v=W5Z0Gt3gfkM">
+                Александр Куприянов о том, что стоит подтянуть проектам, в которых есть недочеты
+            </li>
+        </ul>
+    </div>
+</div>
+
 <script>
-	$(function(){
-		$('#silainterview').SilaInterview({
-			name: 'interview\'s name',
-			descr: 'supa pupa interview',
-			photoUrl: 'http://thumbs.dreamstime.com/x/casual-interview-meeting-4232679.jpg',
-
-			questions: [
-				{
-					text: '111111111',
-					videoUrl: 'www.youtube.com/watch?v=TStjKm5OiUA'
-				},
-				{
-					text: '22222222',
-					videoUrl: 'www.youtube.com/watch?v=PtuHeWyDJqQ'
-				},
-				{
-					text: '3333333',
-					videoUrl: 'www.youtube.com/watch?v=kZ6A6VaWUIU'
-				},
-				{
-					text: '4444444',
-					videoUrl: 'www.youtube.com/watch?v=DzfUBoD9R7U'
-				}
-			]
-		})
-	});
-</script>
+    <!--
+    jQuery(function () {
+        jQuery('#silainterview1').SilaInterview({
+            css: 'http://sila.media/silainterview.css',
+            video: {
+                width: "640px",
+                height: "360px"
+            }
+        });
+    });
+    //--></script>
 </body>
-
 </html>

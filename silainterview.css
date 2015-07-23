@@ -2,15 +2,15 @@
 	list-style: none;
 }
 
-.silainterview .descr {
+.silainterview .sila-description {
     float: left;
     width: 300px;
 }
 
-.silainterview .questions {
+.silainterview .sila-questions {
     padding-left: 300px;
 }
 
-.silainterview .video {
+.silainterview .sila-video-player {
     padding-left: 300px;
 }
