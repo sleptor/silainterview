@@ -34,33 +34,31 @@
 </ul>
 
 <div class="highlight highlight-javascript"><pre><span class="pl-k">&lt;</span>script src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>http://example.com/int/silainterview.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/script<span class="pl-k">&gt;</span>
-<span class="pl-k">&lt;</span>div id<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>silainterview<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;</span>/div<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>div id<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>silainterview1<span class="pl-pds">"</span></span> <span class="pl-k">class</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>silainterview<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+    <span class="pl-k">&lt;</span>h1<span class="pl-k">&gt;</span>Demo interview<span class="pl-k">&lt;</span>/h1<span class="pl-k">&gt;</span>
+    <span class="pl-k">&lt;</span>div <span class="pl-k">class</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>sila-description<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+        description
+    <span class="pl-k">&lt;</span>/div<span class="pl-k">&gt;</span>
+    <span class="pl-k">&lt;</span>div <span class="pl-k">class</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>sila-video-player<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+        <span class="pl-k">&lt;</span>img src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>http://multimediawe.ru/wp-content/uploads/2015/05/exp.jpg<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+    <span class="pl-k">&lt;</span>/div<span class="pl-k">&gt;</span>
+    <span class="pl-k">&lt;</span>div <span class="pl-k">class</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>sila-questions<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+        <span class="pl-k">&lt;</span>h2<span class="pl-k">&gt;</span>Выберите вопрос<span class="pl-k">&lt;</span>/h2<span class="pl-k">&gt;</span>
+        <span class="pl-k">&lt;</span>ul<span class="pl-k">&gt;</span>
+            <span class="pl-k">&lt;</span>li data<span class="pl-k">-</span>video<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>www.youtube.com/watch?v=-5REkR4b1b0<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+                Критерии, которыми руководствовались эксперты при оценке проектов
+            <span class="pl-k">&lt;</span>/li<span class="pl-k">&gt;</span>
+            <span class="pl-k">&lt;</span>li data<span class="pl-k">-</span>video<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>www.youtube.com/watch?v=SJAF6CPjdbw<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+                Что удивило и порадовало экспертов в проектах
+            <span class="pl-k">&lt;</span>/li<span class="pl-k">&gt;</span>
+        <span class="pl-k">&lt;</span>/ul<span class="pl-k">&gt;</span>
+    <span class="pl-k">&lt;</span>/div<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>/div<span class="pl-k">&gt;</span>
 <span class="pl-k">&lt;</span>script<span class="pl-k">&gt;</span>
-    jQuery(<span class="pl-k">function</span>(){
-        jQuery(<span class="pl-s"><span class="pl-pds">'</span>#silainterview<span class="pl-pds">'</span></span>).SilaInterview({
-            css<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>http://example.com/int/silainterview.css<span class="pl-pds">'</span></span>,     
-            name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>interview<span class="pl-cce">\'</span>s name<span class="pl-pds">'</span></span>,
-            descr<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>supa pupa interview<span class="pl-pds">'</span></span>,
-            photoUrl<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>http://thumbs.dreamstime.com/x/casual-interview-meeting-4232679.jpg<span class="pl-pds">'</span></span>,
-            questions<span class="pl-k">:</span> [
-                {
-                    text<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>111111111<span class="pl-pds">'</span></span>,
-                    videoUrl<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>www.youtube.com/watch?v=TStjKm5OiUA<span class="pl-pds">'</span></span>
-                },
-                {
-                    text<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>22222222<span class="pl-pds">'</span></span>,
-                    videoUrl<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>www.youtube.com/watch?v=PtuHeWyDJqQ<span class="pl-pds">'</span></span>
-                },
-                {
-                    text<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>3333333<span class="pl-pds">'</span></span>,
-                    videoUrl<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>www.youtube.com/watch?v=kZ6A6VaWUIU<span class="pl-pds">'</span></span>
-                },
-                {
-                    text<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>4444444<span class="pl-pds">'</span></span>,
-                    videoUrl<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>www.youtube.com/watch?v=DzfUBoD9R7U<span class="pl-pds">'</span></span>
-                }
-            ]
-        })
+    jQuery(<span class="pl-k">function</span> () {
+        jQuery(<span class="pl-s"><span class="pl-pds">'</span>#silainterview1<span class="pl-pds">'</span></span>).SilaInterview({
+            css<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>http://sila.media/silainterview.css<span class="pl-pds">'</span></span>
+        });
     });
 <span class="pl-k">&lt;</span>/script<span class="pl-k">&gt;</span></pre></div>
 
