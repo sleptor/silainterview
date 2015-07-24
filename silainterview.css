@@ -1,10 +1,11 @@
 .silainterview ul {
-	list-style: none;
+    list-style: none !important;
 }
 
 .silainterview .sila-description {
     float: left;
     width: 300px;
+    margin-bottom: 15px;
 }
 
 .silainterview .sila-questions {
@@ -13,4 +14,28 @@
 
 .silainterview .sila-video-player {
     padding-left: 300px;
+}
+
+@media screen and (max-width: 761px) {
+
+    .silainterview .sila-description {
+        float: left;
+        width: 100%;
+    }
+
+    .silainterview .sila-questions {
+        padding-left: 0;
+    }
+
+    .silainterview .sila-video-player {
+        padding-left: 0;
+    }
+
+    .silainterview .sila-video-player img {
+        width: 100%;
+    }
+
+    .silainterview .sila-video-player iframe {
+        width: 100% !important;
+    }
 }

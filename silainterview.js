@@ -12,6 +12,7 @@
             css: false,
             youtubeTpl: default_youtube_tpl,
             questionTpl: default_question_tpl,
+            autoScroll: true,
             video: {
                 height: "300px",
                 width: "350px"
@@ -39,7 +40,15 @@
             var id = youtubeUrlParser(url);
             if (id) {
                 var code = templateEngine(settings.youtubeTpl, {id: id, params: settings.video});
-                $('.sila-video-player', $cnt).html(code);
+                var $player = $('.sila-video-player', $cnt);
+                $player.html(code);
+
+                if (settings.autoScroll) {
+                    $('html, body').animate({
+                        scrollTop: $player.offset().top
+                    }, 1000);
+                }
+
             } else {
                 alert('Silemedia interview: bad youtube url: ' + url)
             }
