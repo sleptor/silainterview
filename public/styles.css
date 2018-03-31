@@ -92,3 +92,17 @@ textarea {
 .error {
     border: 1px solid red;
 }
+
+.logo a {
+    display: block;
+    width: 150px;
+    height: 40px;
+    background: url(sila.jpg) no-repeat;
+    background-size: contain;
+    text-indent: -10000px;
+    margin: 25px auto 0 auto;
+}
+
+.panel-heading h5{
+    margin: 0;
+}

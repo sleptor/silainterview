@@ -160,7 +160,7 @@ SileInterview.push(${JSON.stringify(data, null, 2)});
                         <textarea id="code" className="form-control" value={code} readOnly={true} onFocus={this.handleFocus} />
                     </div>
                     <Clipboard className="btn btn-default" data-clipboard-text={code}>
-                        Copy to clipboard
+                        <i class="fa fa-copy"></i> Copy to clipboard
                     </Clipboard>
                 </div>
             </div>
@@ -187,7 +187,7 @@ class QuestionsList extends React.Component {
                                     <Input value={item.url} type="url" required={true} placeholder="Youtube URL" className="form-control" onChange={(e) => this.props.textChange(idx, "url", e)}/>
                                 </div>
                                 <div>
-                                    <a className="btn btn-sm btn-default" onClick={(e) => this.props.removeQuestion(idx)}>Remove</a>
+                                    <a className="btn btn-sm btn-default" onClick={(e) => this.props.removeQuestion(idx)}><i class="fa fa-minus-circle"></i></a>
                                     {' '}
                                     <a className={`btn btn-sm btn-default${idx===0?' hidden':''}`} onClick={(e) => this.props.upQuestion(idx)}>&uarr;</a>
                                     {' '}
@@ -196,8 +196,8 @@ class QuestionsList extends React.Component {
                             </div>
                         ))}
                     </fieldset>
-                    <button className="btn btn-primary" onClick={(e) => this.props.addQuestion()}>
-                        Add
+                    <button className="btn btn-success" onClick={(e) => this.props.addQuestion()}>
+                        <i class="fa fa-plus-circle"></i> Add
                     </button>
                 </div>
             </div>
