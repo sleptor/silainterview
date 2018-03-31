@@ -1,3 +1,8 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Clipboard from 'react-clipboard.js';
+import validator from 'validator';
+
 class InterviewApp extends React.Component {
 
     constructor(props) {
@@ -18,6 +23,8 @@ class InterviewApp extends React.Component {
         this.addQuestion = this.addQuestion.bind(this);
         this.removeQuestion = this.removeQuestion.bind(this);
         this.questionChange = this.questionChange.bind(this);
+        this.upQuestion = this.upQuestion.bind(this);
+        this.downQuestion = this.downQuestion.bind(this);
 
         this.textChange = this.textChange.bind(this);
     }
@@ -36,6 +43,8 @@ class InterviewApp extends React.Component {
                     questions={this.state.questions}
                     addQuestion={this.addQuestion}
                     removeQuestion={this.removeQuestion}
+                    upQuestion={this.upQuestion}
+                    downQuestion={this.downQuestion}
                     textChange={this.questionChange}
                 />
 
@@ -64,10 +73,35 @@ class InterviewApp extends React.Component {
         }));
     }
 
-    removeQuestion(idx, e) {
-        e.preventDefault();
+    removeQuestion(idx) {
         this.setState({
             questions: this.state.questions.filter((item, sidx) => idx !== sidx)
+        });
+    }
+
+    move(arr, from, to) {
+        arr.splice(to, 0, arr.splice(from, 1)[0]);
+    };
+
+    upQuestion(idx) {
+
+        let questions = this.state.questions;
+
+        this.move(questions, idx, idx-1);
+
+        this.setState({
+            questions: questions
+        });
+    }
+
+    downQuestion(idx) {
+
+        let questions = this.state.questions;
+
+        this.move(questions, idx, idx+1);
+
+        this.setState({
+            questions: questions
         });
     }
 
@@ -75,7 +109,9 @@ class InterviewApp extends React.Component {
 
         const newQuestions = this.state.questions.map((item, sidx) => {
             if (idx !== sidx) return item;
-            return {...item, [field]: e.target.value};
+            item[field] = e.target.value;
+
+            return item;
         });
 
         this.setState({questions: newQuestions});
@@ -98,7 +134,7 @@ class Results extends React.Component {
             title: this.props.title,
             description: this.props.description,
             poster: this.props.poster,
-            questions: this.props.questions.filter((item) => item.text.length && item.url.length)
+            questions: this.props.questions.filter((item) => item.text.length && item.url.length && validator.isURL(item.url, {require_protocol: true}))
         };
 
         if(!data.questions.length) {
@@ -120,7 +156,12 @@ SileInterview.push(${JSON.stringify(data, null, 2)});
                 </div>
 
                 <div className="panel-body">
-                    <textarea className="form-control" value={code} readOnly={true} onFocus={this.handleFocus}/>
+                    <div className="form-group">
+                        <textarea id="code" className="form-control" value={code} readOnly={true} onFocus={this.handleFocus} />
+                    </div>
+                    <Clipboard className="btn btn-default" data-clipboard-text={code}>
+                        Copy to clipboard
+                    </Clipboard>
                 </div>
             </div>
         );
@@ -140,13 +181,17 @@ class QuestionsList extends React.Component {
                         {this.props.questions.map((item, idx) => (
                             <div className="question" key={idx}>
                                 <div className="form-group">
-                                    <input value={item.text} type="text" required placeholder="Question" className="form-control" onChange={(e) => this.props.textChange(idx, "text", e)}/>
+                                    <Input value={item.text} required={true} placeholder="Question" className="form-control" onChange={(e) => this.props.textChange(idx, "text", e)}/>
                                 </div>
                                 <div className="form-group">
-                                    <input value={item.url} type="url" required placeholder="Youtube URL" className="form-control" onChange={(e) => this.props.textChange(idx, "url", e)}/>
+                                    <Input value={item.url} type="url" required={true} placeholder="Youtube URL" className="form-control" onChange={(e) => this.props.textChange(idx, "url", e)}/>
                                 </div>
                                 <div>
-                                    <a className="" href="#" onClick={(e) => this.props.removeQuestion(idx, e)}>Remove</a>
+                                    <a className="btn btn-sm btn-default" onClick={(e) => this.props.removeQuestion(idx)}>Remove</a>
+                                    {' '}
+                                    <a className={`btn btn-sm btn-default${idx===0?' hidden':''}`} onClick={(e) => this.props.upQuestion(idx)}>&uarr;</a>
+                                    {' '}
+                                    <a className={`btn btn-sm btn-default${idx===this.props.questions.length-1?' hidden':''}`} onClick={(e) => this.props.downQuestion(idx)}>&darr;</a>
                                 </div>
                             </div>
                         ))}
@@ -162,10 +207,6 @@ class QuestionsList extends React.Component {
 
 class Params extends React.Component {
 
-    handleBlur(e) {
-        console.log(e.target.value);
-    }
-
     render() {
         return (
             <div className="panel panel-default">
@@ -175,10 +216,10 @@ class Params extends React.Component {
                 <div className="panel-body">
                     <fieldset>
                         <div className="form-group">
-                            <input onBlur={this.handleBlur} value={this.props.title} type="text" required placeholder="Title" className="form-control" onChange={(e) => this.props.textChange("title", e)}/>
+                            <Input autoFocus={true} value={this.props.title} type="text" required={true} placeholder="Title" className="form-control" onChange={(e) => this.props.textChange("title", e)}/>
                         </div>
                         <div className="form-group">
-                            <input value={this.props.poster} type="text" required placeholder="Video poster URL" className="form-control" onChange={(e) => this.props.textChange("poster", e)}/>
+                            <Input value={this.props.poster} type="url" required={true} placeholder="Video poster URL" className="form-control" onChange={(e) => this.props.textChange("poster", e)}/>
                         </div>
                         <div className="form-group">
                             <textarea value={this.props.description} placeholder="Description" className="form-control" onChange={(e) => this.props.textChange("description", e)}/>
@@ -188,6 +229,40 @@ class Params extends React.Component {
             </div>
         );
     }
+}
+
+class Input extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            error: false
+        };
+        this.handleBlur = this.handleBlur.bind(this);
+    }
+
+    handleBlur(e) {
+        let error = false;
+        if(this.props.required === true && !e.target.value.length) {
+            error = true;
+        }
+
+        if(this.props.type == 'url' && !validator.isURL(e.target.value, {require_protocol: true})) {
+            error = true;
+        }
+
+        this.setState({error: error});
+    }
+
+    validateUrl(value) {
+        return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
+    }
+
+    render() {
+        return (
+            <input autoFocus={this.props.autoFocus} onBlur={this.handleBlur} value={this.props.value} type="text" placeholder={this.props.placeholder} className={`form-control${this.state.error?' error':''}`} onChange={(e) => this.props.onChange(e)}/>
+        );
+    }
+
 }
 
 ReactDOM.render(<InterviewApp/>, document.getElementById('root'));

@@ -1,0 +1,34 @@
+{
+  "name": "silainterview",
+  "version": "1.0.0",
+  "description": "Interactive interview",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sleptor/silainterview.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sleptor/silainterview/issues"
+  },
+  "homepage": "https://github.com/sleptor/silainterview#readme",
+  "dependencies": {
+    "babel-loader": "^7.1.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "react": "^16.3.0",
+    "react-clipboard.js": "^1.1.3",
+    "react-dom": "^16.3.0",
+    "validator": "^9.4.1",
+    "webpack": "^4.4.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^2.0.13"
+  },
+  "scripts": {
+    "dev": "webpack -d --watch",
+    "build": "webpack -p"
+  }
+}

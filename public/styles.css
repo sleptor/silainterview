@@ -88,3 +88,7 @@ textarea {
     min-height: 150px;
     resize: vertical;
 }
+
+.error {
+    border: 1px solid red;
+}
