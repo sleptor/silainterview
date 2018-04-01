@@ -9,13 +9,23 @@ class InterviewApp extends React.Component {
         super(props);
         this.state = {
             id: "si-" + Date.now(),
-            title: "",
-            description: "",
-            poster: "",
+            title: "Demo interview",
+            description: "Александр Куприянов, создатель и руководитель мультимедийных редакций, тренер-консультант в области " +
+            "медиаменеджмента и Сергей Якупов, продюсер, редактор zvzda.ru и mediamedia.me, рассказывают о проектах, " +
+            "разработанных в рамках «Мультимедийные мы»",
+            poster: "http://multimediawe.ru/wp-content/uploads/2015/05/exp.jpg",
             questions: [
                 {
-                    text: "WTF is going on?",
-                    url: "https://www.youtube.com/watch?v=YCKI4FtezDk"
+                    text: "Критерии, которыми руководствовались эксперты при оценке проектов",
+                    url: "https://www.youtube.com/watch?v=-5REkR4b1b0"
+                },
+                {
+                    text: "Что удивило и порадовало экспертов в проектах",
+                    url: "https://www.youtube.com/watch?v=SJAF6CPjdbw"
+                },
+                {
+                    text: "Cергей Якупов о проектах, которые зацепили",
+                    url: "https://www.youtube.com/watch?v=dtmwEv4ePJM"
                 }
             ]
         };
@@ -141,12 +151,14 @@ class Results extends React.Component {
             return null;
         }
 
+        const url = window.location.href.replace('index.html','') + 'silainterview.js';
+
         const code = `<div id="${this.props.id}" class="sila-interview"></div>
 <script>
-var SileInterview = SileInterview || [];
-SileInterview.push(${JSON.stringify(data, null, 2)});
+var SilaInterview = SilaInterview || [];
+SilaInterview.push(${JSON.stringify(data, null, 2)});
 </script>
-<script src="silainterview.js"></script>
+<script src="${url}"></script>
 `;
 
         return (
@@ -160,7 +172,7 @@ SileInterview.push(${JSON.stringify(data, null, 2)});
                         <textarea id="code" className="form-control" value={code} readOnly={true} onFocus={this.handleFocus} />
                     </div>
                     <Clipboard className="btn btn-default" data-clipboard-text={code}>
-                        <i class="fa fa-copy"></i> Copy to clipboard
+                        <i className="fa fa-copy" /> Copy to clipboard
                     </Clipboard>
                 </div>
             </div>
@@ -181,13 +193,13 @@ class QuestionsList extends React.Component {
                         {this.props.questions.map((item, idx) => (
                             <div className="question" key={idx}>
                                 <div className="form-group">
-                                    <Input value={item.text} required={true} placeholder="Question" className="form-control" onChange={(e) => this.props.textChange(idx, "text", e)}/>
+                                    <Input value={item.text} required={true} placeholder="Question" class="form-control" onChange={(e) => this.props.textChange(idx, "text", e)}/>
                                 </div>
                                 <div className="form-group">
-                                    <Input value={item.url} type="url" required={true} placeholder="Youtube URL" className="form-control" onChange={(e) => this.props.textChange(idx, "url", e)}/>
+                                    <Input value={item.url} type="url" required={true} placeholder="Youtube URL" class="form-control" onChange={(e) => this.props.textChange(idx, "url", e)}/>
                                 </div>
                                 <div>
-                                    <a className="btn btn-sm btn-default" onClick={(e) => this.props.removeQuestion(idx)}><i class="fa fa-minus-circle"></i></a>
+                                    <a className="btn btn-sm btn-default" onClick={(e) => this.props.removeQuestion(idx)}><i className="fa fa-minus-circle"/></a>
                                     {' '}
                                     <a className={`btn btn-sm btn-default${idx===0?' hidden':''}`} onClick={(e) => this.props.upQuestion(idx)}>&uarr;</a>
                                     {' '}
@@ -197,7 +209,7 @@ class QuestionsList extends React.Component {
                         ))}
                     </fieldset>
                     <button className="btn btn-success" onClick={(e) => this.props.addQuestion()}>
-                        <i class="fa fa-plus-circle"></i> Add
+                        <i className="fa fa-plus-circle"/> Add
                     </button>
                 </div>
             </div>
@@ -216,10 +228,10 @@ class Params extends React.Component {
                 <div className="panel-body">
                     <fieldset>
                         <div className="form-group">
-                            <Input autoFocus={true} value={this.props.title} type="text" required={true} placeholder="Title" className="form-control" onChange={(e) => this.props.textChange("title", e)}/>
+                            <Input autoFocus={true} value={this.props.title} type="text" required={true} placeholder="Title" onChange={(e) => this.props.textChange("title", e)}/>
                         </div>
                         <div className="form-group">
-                            <Input value={this.props.poster} type="url" required={true} placeholder="Video poster URL" className="form-control" onChange={(e) => this.props.textChange("poster", e)}/>
+                            <Input value={this.props.poster} type="url" required={true} placeholder="Video poster URL" onChange={(e) => this.props.textChange("poster", e)}/>
                         </div>
                         <div className="form-group">
                             <textarea value={this.props.description} placeholder="Description" className="form-control" onChange={(e) => this.props.textChange("description", e)}/>
@@ -251,10 +263,6 @@ class Input extends React.Component {
         }
 
         this.setState({error: error});
-    }
-
-    validateUrl(value) {
-        return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
     }
 
     render() {

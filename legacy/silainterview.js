@@ -1,8 +1,7 @@
 /**
- * (c) 2015 sleptor
+ * (c) 2017 sleptor
  * The MIT License (MIT)
- * special for sila.media
- * version: 2.0
+ * version: 1.0.0
  */
 
 (function ($) {
