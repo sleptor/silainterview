@@ -9,7 +9,11 @@ class InterviewApp extends React.Component {
         super(props);
         this.state = {
             id: "si-" + Date.now(),
-            title: "Demo interview",
+            title: '',
+            poster: '',
+            description: '',
+            questions: []
+            /*title: "Demo Interactiview",
             description: "Александр Куприянов, создатель и руководитель мультимедийных редакций, тренер-консультант в области " +
             "медиаменеджмента и Сергей Якупов, продюсер, редактор zvzda.ru и mediamedia.me, рассказывают о проектах, " +
             "разработанных в рамках «Мультимедийные мы»",
@@ -27,7 +31,7 @@ class InterviewApp extends React.Component {
                     text: "Cергей Якупов о проектах, которые зацепили",
                     url: "https://www.youtube.com/watch?v=dtmwEv4ePJM"
                 }
-            ]
+            ]*/
         };
 
         this.addQuestion = this.addQuestion.bind(this);
@@ -153,13 +157,10 @@ class Results extends React.Component {
 
         const url = window.location.href.replace('index.html','') + 'silainterview.js';
 
-        const code = `<div id="${this.props.id}" class="sila-interview"></div>
-<script>
-var SilaInterview = SilaInterview || [];
-SilaInterview.push(${JSON.stringify(data, null, 2)});
-</script>
-<script src="${url}"></script>
-`;
+        const code = `<div id="${this.props.id}" class="sila-interactiview"></div><script>
+var SilaInteractiview = SilaInteractiview || [];
+SilaInteractiview.push(${JSON.stringify(data, null, 2)});
+</script><script src="${url}"></script>`;
 
         return (
             <div className="panel panel-default">
@@ -228,13 +229,13 @@ class Params extends React.Component {
                 <div className="panel-body">
                     <fieldset>
                         <div className="form-group">
-                            <Input autoFocus={true} value={this.props.title} type="text" required={true} placeholder="Title" onChange={(e) => this.props.textChange("title", e)}/>
+                            <Input autoFocus={true} value={this.props.title} type="text" required={true} placeholder="Headline" onChange={(e) => this.props.textChange("title", e)}/>
                         </div>
                         <div className="form-group">
-                            <Input value={this.props.poster} type="url" required={true} placeholder="Video poster URL" onChange={(e) => this.props.textChange("poster", e)}/>
+                            <Input value={this.props.poster} type="url" required={true} placeholder="Cover picture URL (we recommend 640x480px)" onChange={(e) => this.props.textChange("poster", e)}/>
                         </div>
                         <div className="form-group">
-                            <textarea value={this.props.description} placeholder="Description" className="form-control" onChange={(e) => this.props.textChange("description", e)}/>
+                            <textarea value={this.props.description} placeholder="Lead/Description" className="form-control" onChange={(e) => this.props.textChange("description", e)}/>
                         </div>
                     </fieldset>
                 </div>

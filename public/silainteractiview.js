@@ -5,7 +5,7 @@
  */
 
 (function (w, d) {
-    var flag = 'SilaInterviewLoaded';
+    var flag = 'SilaInteractiviewLoaded';
 
     if (typeof w[flag] !== 'undefined') {
         return;
@@ -14,43 +14,49 @@
     w[flag] = true;
 
     var styles = " \
-    .silainterview ul { \
+    .sila-interactiview ul { \
         list-style: none !important; \
         margin: 0;\
         padding: 0;\
     } \
-    .silainterview .sila-description { \
+    .sila-interactiview .sila-description { \
         float: left; \
         width: 300px; \
-        margin-bottom: 15px; \
+        margin: 0 15px 15px 0; \
     } \
-    .silainterview .sila-questions { \
-        padding-left: 300px; \
+    .sila-interactiview .sila-questions { \
+        padding-left: 310px; \
     } \
-    .silainterview .sila-video-player { \
-        padding-left: 300px; \
+    .sila-interactiview .sila-video-player { \
+        padding-left: 310px; \
+    } \
+    .sila-interactiview .sila-poster { \
+        background-color: transparent; \
+        background-position: 50% 50%; \
+        background-size: cover; \
+        background-repeat: no-repeat; \
     } \
     @media screen and (max-width: 761px) { \
-        .silainterview .sila-description { \
+        .sila-interactiview .sila-description { \
             float: left; \
             width: 100%; \
         } \
-        .silainterview .sila-questions { \
+        .sila-interactiview .sila-questions { \
             padding-left: 0; \
         } \
-        .silainterview .sila-video-player { \
+        .sila-interactiview .sila-video-player { \
             padding-left: 0; \
         } \
-        .silainterview .sila-video-player img { \
+        .sila-interactiview .sila-video-player img { \
             width: 100%; \
         } \
-        .silainterview .sila-video-player iframe { \
+        .sila-interactiview .sila-video-player iframe { \
             width: 100% !important; \
         } \
     } \
     ";
 
-    var settings = {
+    var defaultSettings = {
         css: false,
         autoScroll: true,
         video: {
@@ -66,10 +72,12 @@
             return;
         }
 
-        var h1 = d.createElement('h1');
-        h1.innerHTML = data.title;
+        var videoSettings = data.video || defaultSettings.video;
 
-        cnt.appendChild(h1);
+        var title = d.createElement('h2');
+        title.innerHTML = data.title;
+
+        cnt.appendChild(title);
 
         var descr = d.createElement('div');
         descr.className = 'sila-description';
@@ -78,14 +86,14 @@
 
         var video = d.createElement('div');
         video.className = 'sila-video-player';
-        video.innerHTML = '<img src="' + data.poster + '">';
+        video.innerHTML = '<div class="sila-poster" style="width:'+videoSettings.width+';height: '+videoSettings.height+';background-image: url(' + data.poster + ')"></div>';
         cnt.appendChild(video);
 
         var qcnt = d.createElement('div');
         qcnt.className = 'sila-questions';
-        var h2 = d.createElement('h2');
-        h2.innerHTML = 'Выберите вопрос';
-        qcnt.appendChild(h2);
+        var qlabel = d.createElement('h3');
+        qlabel.innerHTML = 'Выберите вопрос';
+        qcnt.appendChild(qlabel);
 
         var ul = d.createElement('ul');
         qcnt.appendChild(ul);
@@ -98,7 +106,7 @@
                 var id = data.id+'_radio_'+qi;
 
                 li.innerHTML = '<label for="'+id+'">' +
-                    '<input type="radio" name="'+data.id+'_radio" id="'+id+'" value="'+qi+'" class="question"> ' + data.questions[qi].text +
+                    '<input type="radio" name="'+data.id+'_radio" id="'+id+'" value="'+qi+'" class="sila-question"> ' + data.questions[qi].text +
                     '</label>';
 
                 (function (url) {
@@ -106,9 +114,9 @@
                         var id = youtubeUrlParser(url);
 
                         url = 'https://www.youtube.com/embed/'+id+'?autoplay=1';
-                        video.innerHTML = '<iframe style="width:'+settings.video.width+'; height:'+settings.video.height+';" src="'+url+'" frameborder="0" allowfullscreen></iframe>';
+                        video.innerHTML = '<iframe style="width:'+defaultSettings.video.width+'; height:'+defaultSettings.video.height+';" src="'+url+'" frameborder="0" allowfullscreen></iframe>';
 
-                        if (settings.autoScroll) {
+                        if (defaultSettings.autoScroll) {
                             scrollTo(d.documentElement, video.offsetTop, 100);
                         }
                     });
@@ -171,18 +179,18 @@
 
     d.addEventListener("DOMContentLoaded", function (event) {
 
-        var SilaInterview = w['SilaInterview'] || [];
+        var SilaInteractiview = w['SilaInteractiview'] || [];
 
-        if (!SilaInterview.length) {
+        if (!SilaInteractiview.length) {
             return;
         }
 
         injectStyles(styles);
 
-        for (var i in SilaInterview) {
+        for (var i in SilaInteractiview) {
 
-            if (SilaInterview.hasOwnProperty(i)) {
-                render(SilaInterview[i]);
+            if (SilaInteractiview.hasOwnProperty(i)) {
+                render(SilaInteractiview[i]);
             }
         }
     });
