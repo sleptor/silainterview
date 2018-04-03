@@ -1,3 +1,9 @@
+
+/**
+ * @license MIT
+ * Copyright (c) 2018-present, Silamedia
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Clipboard from 'react-clipboard.js';
@@ -155,7 +161,7 @@ class Results extends React.Component {
             return null;
         }
 
-        const url = window.location.href.replace('index.html','') + 'silainterview.js';
+        const url = window.location.href.replace('index.html','') + 'silainteractiview.js';
 
         const code = `<div id="${this.props.id}" class="sila-interactiview"></div><script>
 var SilaInteractiview = SilaInteractiview || [];
