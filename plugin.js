@@ -83,7 +83,7 @@
 
         var video = d.createElement('div');
         video.className = 'sila-video-player';
-        video.innerHTML = '<div class="sila-poster" style="width:'+videoSettings.width+';height: '+videoSettings.height+';background-image: url(' + data.poster + ')"></div>';
+        video.innerHTML = '<div class="sila-poster" style="width:' + videoSettings.width + ';height: ' + videoSettings.height + ';background-image: url(' + data.poster + ')"></div>';
         cnt.appendChild(video);
 
         var qcnt = d.createElement('div');
@@ -100,30 +100,60 @@
             if (data.questions.hasOwnProperty(qi)) {
 
                 var li = d.createElement('li');
-                var id = data.id+'_radio_'+qi;
+                var id = data.id + '_radio_' + qi;
 
-                li.innerHTML = '<label for="'+id+'">' +
-                    '<input type="radio" name="'+data.id+'_radio" id="'+id+'" value="'+qi+'" class="sila-question"> ' + data.questions[qi].text +
+                li.innerHTML = '<label for="' + id + '">' +
+                    '<input type="radio" name="' + data.id + '_radio" id="' + id + '" value="' + qi + '" class="sila-question"> ' + data.questions[qi].text +
                     '</label>';
 
                 (function (url) {
-                    li.addEventListener('click', function () {
-                        var id = youtubeUrlParser(url);
-
-                        url = 'https://www.youtube.com/embed/'+id+'?autoplay=1';
-                        video.innerHTML = '<iframe style="width:'+defaultSettings.video.width+'; height:'+defaultSettings.video.height+';" src="'+url+'" frameborder="0" allowfullscreen></iframe>';
+                    li.addEventListener('click', function (e) {
+                        console.log(url);
+                        video.innerHTML = '<iframe style="width:' + defaultSettings.video.width + '; height:' + defaultSettings.video.height + ';" src="' + url + '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
 
                         if (defaultSettings.autoScroll) {
                             scrollTo(d.documentElement, video.offsetTop, 100);
                         }
                     });
-                })(data.questions[qi].url);
+                })(prepareUrl(data.questions[qi].url));
 
                 ul.appendChild(li);
             }
         }
 
         cnt.appendChild(qcnt);
+    }
+
+    function prepareUrl(url) {
+        let id = youtubeUrlParser(url);
+        let queryObj = parseQuery(url);
+        let query = id + '?autoplay=1';
+
+        if (queryObj.hasOwnProperty('t')) {
+            query += '&start=' + convertTime(queryObj['t']);
+        }
+
+        return 'https://www.youtube.com/embed/' + query;
+    }
+
+    function convertTime(duration) {
+        var total = 0;
+        var hours = duration.match(/(\d+)h/);
+        var minutes = duration.match(/(\d+)m/);
+        var seconds = duration.match(/(\d+)s/);
+        if (hours) total += parseInt(hours[1]) * 3600;
+        if (minutes) total += parseInt(minutes[1]) * 60;
+        if (seconds) total += parseInt(seconds[1]);
+        return total;
+    }
+
+    function parseQuery(query) {
+        var result = {};
+        query.split("&").forEach(function (part) {
+            var item = part.split("=");
+            result[item[0]] = decodeURIComponent(item[1]);
+        });
+        return result;
     }
 
     function youtubeUrlParser(url) {
@@ -153,10 +183,11 @@
             currentTime = 0,
             increment = 20;
 
-        var animateScroll = function(){
+        var animateScroll = function () {
             currentTime += increment;
-            element.scrollTop = easeInOutQuad(currentTime, start, change, duration);;
-            if(currentTime < duration) {
+            element.scrollTop = easeInOutQuad(currentTime, start, change, duration);
+            ;
+            if (currentTime < duration) {
                 setTimeout(animateScroll, increment);
             }
         };
@@ -168,10 +199,10 @@
     //c = change in value
     //d = duration
     function easeInOutQuad(t, b, c, d) {
-        t /= d/2;
-        if (t < 1) return c/2*t*t + b;
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t + b;
         t--;
-        return -c/2 * (t*(t-2) - 1) + b;
+        return -c / 2 * (t * (t - 2) - 1) + b;
     };
 
     d.addEventListener("DOMContentLoaded", function (event) {
