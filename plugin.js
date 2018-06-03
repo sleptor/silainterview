@@ -56,8 +56,11 @@
     opacity: 1;
 }
     
-.sila-interactiview .sila-branding a {
+.sila-interactiview .sila-branding span {
     color: #e67417;
+}
+.sila-interactiview .sila-branding a {
+    color: #666;
     text-decoration: none;
 }
 .sila-interactiview .sila-poster {
@@ -164,19 +167,24 @@
 
         var brnd = d.createElement('div');
         brnd.className = 'sila-branding';
-        brnd.innerHTML = 'Interactiview by <a href="http://sila.media?utm_source=interactiview">Silamedia</a>';
+        brnd.innerHTML = '<a href="http://sila.media/interactiview">Interactiview by <span>Silamedia</span></a>';
 
         cnt.appendChild(brnd);
     }
 
     function prepareUrl(url) {
         let id = youtubeUrlParser(url);
-        let queryObj = parseQuery(url);
+
         let query = id + '?autoplay=1';
 
-        if (queryObj.hasOwnProperty('t')) {
-            query += '&start=' + convertTime(queryObj['t']);
+        let t= getParameterByName('t', url);
+
+        if (t) {
+            query += '&start=' + convertTime(t);
         }
+
+        console.log(query);
+
 
         return 'https://www.youtube.com/embed/' + query;
     }
@@ -192,13 +200,14 @@
         return total;
     }
 
-    function parseQuery(query) {
-        var result = {};
-        query.split("&").forEach(function (part) {
-            var item = part.split("=");
-            result[item[0]] = decodeURIComponent(item[1]);
-        });
-        return result;
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
     function youtubeUrlParser(url) {
