@@ -32,6 +32,10 @@
 .sila-interactiview .sila-questions li{
    padding-bottom: 5px;
 }
+.sila-interactiview .sila-questions h3{
+   padding: 0;
+   margin: 10px 0;
+}
 .sila-interactiview .sila-questions li:last-child{
    padding-bottom: 0;
 }
