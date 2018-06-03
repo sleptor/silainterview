@@ -12,6 +12,10 @@
     w[flag] = true;
 
     var styles = `
+.sila-interactiview {
+    position: relative;
+    margin-bottom: 15px;
+}
 .sila-interactiview ul {
     list-style: none !important;
     margin: 0;
@@ -25,22 +29,48 @@
 .sila-interactiview .sila-questions {
     padding-left: 310px;
 }
+.sila-interactiview .sila-questions li{
+   padding-bottom: 5px;
+}
+.sila-interactiview .sila-questions li:last-child{
+   padding-bottom: 0;
+}
 .sila-interactiview .sila-video-player {
     padding-left: 310px;
 }
-.sila-interactiview .sila-poster {
-    background-color: transparent;
-    background-position: 50% 50%;
-    background-size: cover;
-    background-repeat: no-repeat;
+.sila-interactiview .sila-branding {
+    opacity: 0.5;
+    color: #666;
+    font-size: 11px;
+    font-family: Arial;
+    position: absolute;
+    left:0;
+    bottom: 3px;
 }
+
+.sila-interactiview .sila-branding:hover {
+    opacity: 1;
+}
+    
+.sila-interactiview .sila-branding a {
+    color: #e67417;
+    text-decoration: none;
+}
+.sila-interactiview .sila-poster {
+
+}    
+
 @media screen and (max-width: 761px) {
     .sila-interactiview .sila-description {
-        float: left;
+        float: none;
         width: 100%;
+        margin: 0 0 15px 0;
     }
     .sila-interactiview .sila-questions {
         padding-left: 0;
+    }
+    .sila-interactiview .sila-questions li{
+       padding-bottom: 10px;
     }
     .sila-interactiview .sila-video-player {
         padding-left: 0;
@@ -50,6 +80,11 @@
     }
     .sila-interactiview .sila-video-player iframe {
         width: 100% !important;
+    }
+    .sila-interactiview .sila-branding {
+        margin: 10px auto;
+        text-align: center;
+        position: relative;
     }
 }`;
 
@@ -83,7 +118,7 @@
 
         var video = d.createElement('div');
         video.className = 'sila-video-player';
-        video.innerHTML = '<div class="sila-poster" style="width:' + videoSettings.width + ';height: ' + videoSettings.height + ';background-image: url(' + data.poster + ')"></div>';
+        video.innerHTML = '<img class="sila-poster" src="' + data.poster + '" style="max-width:'+videoSettings.width+'">';
         cnt.appendChild(video);
 
         var qcnt = d.createElement('div');
@@ -122,6 +157,12 @@
         }
 
         cnt.appendChild(qcnt);
+
+        var brnd = d.createElement('div');
+        brnd.className = 'sila-branding';
+        brnd.innerHTML = 'Interactiview by <a href="http://sila.media?utm_source=interactiview">Silamedia</a>';
+
+        cnt.appendChild(brnd);
     }
 
     function prepareUrl(url) {
