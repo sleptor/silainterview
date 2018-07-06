@@ -154,7 +154,7 @@
                         video.innerHTML = '<iframe style="width:' + defaultSettings.video.width + '; height:' + defaultSettings.video.height + ';" src="' + url + '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
 
                         if (defaultSettings.autoScroll) {
-                            scrollTo(d.documentElement, video.offsetTop, 100);
+                           scrollTo(video, 200);
                         }
                     });
                 })(prepareUrl(data.questions[qi].url));
@@ -231,21 +231,51 @@
         c.innerHTML = css;
     }
 
-    function scrollTo(element, to, duration) {
-        var start = element.scrollTop,
-            change = to - start,
+    function scrollTo(element, duration) {
+
+        var start = window.pageYOffset || document.documentElement.scrollTop,
+            change = calculateScrollOffset(element, -20) - start,
             currentTime = 0,
             increment = 20;
 
+        if(change >= 0) {
+            return;
+        }
+
         var animateScroll = function () {
             currentTime += increment;
-            element.scrollTop = easeInOutQuad(currentTime, start, change, duration);
-            ;
+            window.scrollTo(0, easeInOutQuad(currentTime, start, change, duration));
+
             if (currentTime < duration) {
                 setTimeout(animateScroll, increment);
             }
         };
         animateScroll();
+    }
+
+    function calculateScrollOffset(elem, additionalOffset, alignment) {
+        var body = document.body,
+            html = document.documentElement;
+
+        var elemRect = elem.getBoundingClientRect();
+        var clientHeight = html.clientHeight;
+        var documentHeight = Math.max( body.scrollHeight, body.offsetHeight,
+            html.clientHeight, html.scrollHeight, html.offsetHeight );
+
+        additionalOffset = additionalOffset || 0;
+
+        var scrollPosition;
+        if (alignment === 'bottom') {
+            scrollPosition = elemRect.bottom - clientHeight;
+        } else if (alignment === 'middle') {
+            scrollPosition = elemRect.bottom - clientHeight / 2 - elemRect.height / 2;
+        } else { // top and default
+            scrollPosition = elemRect.top;
+        }
+
+        var maxScrollPosition = documentHeight - clientHeight;
+        return Math.min(scrollPosition + additionalOffset + window.pageYOffset,
+            maxScrollPosition);
     }
 
     //t = current time
@@ -257,7 +287,7 @@
         if (t < 1) return c / 2 * t * t + b;
         t--;
         return -c / 2 * (t * (t - 2) - 1) + b;
-    };
+    }
 
     d.addEventListener("DOMContentLoaded", function (event) {
 
