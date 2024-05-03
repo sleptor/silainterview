@@ -3,15 +3,18 @@
  * Copyright (c) 2018-present, Silamedia
  */
 (function (w, d) {
-    var flag = 'SilaInteractiviewLoaded';
+
+    const version = '1.1',
+        flag = 'SilaInteractiviewLoaded';
 
     if (typeof w[flag] !== 'undefined') {
         return;
     }
 
+    console.log('SilaInteractiview ' + version);
     w[flag] = true;
 
-    var styles = `
+    const styles = `
 .sila-interactiview {
     position: relative;
     margin-bottom: 15px;
@@ -64,7 +67,6 @@
     text-decoration: none;
 }
 .sila-interactiview .sila-poster {
-
 }    
 
 @media screen and (max-width: 761px) {
@@ -165,11 +167,11 @@
 
         cnt.appendChild(qcnt);
 
-        var brnd = d.createElement('div');
-        brnd.className = 'sila-branding';
-        brnd.innerHTML = '<a href="http://sila.media/interactiview">Interactiview by <span>Silamedia</span></a>';
+        const branding = d.createElement('div');
+        branding.className = 'sila-branding';
+        branding.innerHTML = '<a href="https://sila.media/interactiview">Interactiview by <span>Silamedia</span></a>';
 
-        cnt.appendChild(brnd);
+        cnt.appendChild(branding);
     }
 
     function prepareUrl(url) {
@@ -183,10 +185,7 @@
             query += '&start=' + convertTime(t);
         }
 
-        console.log(query);
-
-
-        return 'https://www.youtube.com/embed/' + query;
+        return 'https://www.youtube-nocookie.com/embed/' + query;
     }
 
     function convertTime(duration) {
@@ -213,7 +212,7 @@
     function youtubeUrlParser(url) {
         var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
         var match = url.match(regExp);
-        if (match && match[7].length == 11) {
+        if (match && match[7].length === 11) {
             return match[7];
         } else {
             return null
