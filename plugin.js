@@ -4,7 +4,7 @@
  */
 (function (w, d) {
 
-    const version = '1.1',
+    const version = '1.2',
         flag = 'SilaInteractiviewLoaded';
 
     if (typeof w[flag] !== 'undefined') {
@@ -179,7 +179,7 @@
 
         let query = id + '?autoplay=1';
 
-        let t= getParameterByName('t', url);
+        let t = getParameterByName('t', url);
 
         if (t) {
             query += '&start=' + convertTime(t);
@@ -192,10 +192,12 @@
         var total = 0;
         var hours = duration.match(/(\d+)h/);
         var minutes = duration.match(/(\d+)m/);
-        var seconds = duration.match(/(\d+)s/);
+        var seconds = duration.match(/(\d+)s$/);
+        var seconds2 = duration.match(/(\d+)$/);
         if (hours) total += parseInt(hours[1]) * 3600;
         if (minutes) total += parseInt(minutes[1]) * 60;
         if (seconds) total += parseInt(seconds[1]);
+        if (seconds2) total += parseInt(seconds2[1]);
         return total;
     }
 
